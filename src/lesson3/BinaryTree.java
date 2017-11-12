@@ -218,7 +218,11 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     @NotNull
     @Override
     public SortedSet<T> tailSet(T fromElement) {
-        throw new UnsupportedOperationException();
+        SortedSet<T> set = new TreeSet<>();
+        for (T element: this){
+            set.add(element);
+        }
+        return set.tailSet(fromElement);
     }
 
     @Override
