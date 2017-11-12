@@ -51,6 +51,24 @@ class BinaryTreeTest {
     }
 
     @Test
+    fun findNextTest(){
+        val tree = BinaryTree<Int>()
+        tree.add(10)
+        tree.add(5)
+        tree.add(7)
+        tree.add(3)
+        tree.add(14)
+        tree.add(9)
+
+        val list = mutableListOf<Int>()
+        for (element in tree){
+            list.add(element)
+        }
+        val list1 = mutableListOf<Int>(3,5,7,9,10,14)
+        assertEquals(list,list1)
+    }
+
+    @Test
     fun addKotlin() {
         val tree = KtBinaryTree<Int>()
         tree.add(10)
