@@ -1,5 +1,6 @@
 package lesson3;
 
+import kotlin.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -10,7 +11,7 @@ import java.util.*;
 public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implements SortedSet<T> {
 
     private static class Node<T> {
-        final T value;
+        private T value;
 
         Node<T> left = null;
 
@@ -61,7 +62,30 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
     @Override
     public boolean remove(Object o) {
-        throw new UnsupportedOperationException();
+        if (o == null) return false;
+        Node<T> element = find((T) o);
+        if (element == null || element.value != o) return false;
+
+        Node<T> current = element;
+        if (element.right != null) {
+            current = element.right;
+            while (current.left != null) {
+                current = current.left;
+            }
+        } else if (element.left != null){
+            current = element.left;
+            while (current.right != null) {
+                current = current.right;
+            }
+        } else {
+            element = null;
+            size--;
+            return true;
+        }
+        element.value = current.value;
+        current = null;
+        size--;
+        return true;
     }
 
     @Override
