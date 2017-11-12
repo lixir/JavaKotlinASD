@@ -120,10 +120,51 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
         private Node<T> current = null;
 
+        private boolean flag = true;
+
         private BinaryTreeIterator() {}
 
         private Node<T> findNext() {
-            throw new UnsupportedOperationException();
+            if (current == null) {
+                current = root;
+                while(current.left != null){
+                    current = current.left;
+                }
+                return current;
+            }
+            if (flag){
+                flag = false;
+                return current;
+            }
+            Node<T> temp = current.right;
+            if (temp != null){
+                while(temp.left != null){
+                    temp = temp.left;
+                }
+            } else {
+                temp = findParent(root, current.value);
+                if (temp == null) return null;
+                if (temp.value.compareTo(current.value) > 0){
+                    return temp;
+                } else return null;
+            }
+            return temp;
+        }
+
+        private Node<T> findParent(Node<T> parent, T value) {
+            int comparison = value.compareTo(parent.value);
+            if (comparison < 0) {
+                if (parent.left == null) return null;
+                if (parent.left.value.compareTo(value) == 0) return parent;
+                return findParent(parent.left, value);
+            }
+            else if (comparison > 0) {
+                if (parent.right == null) return null;
+                if (parent.right.value.compareTo(value) == 0) return findParent(root, parent.value);
+                return findParent(parent.right, value);
+            } else {
+                return null;
+            }
         }
 
         @Override
