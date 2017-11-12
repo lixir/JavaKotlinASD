@@ -32,6 +32,25 @@ class BinaryTreeTest {
     }
 
     @Test
+    fun remove(){
+        val tree = BinaryTree<Int>()
+        tree.add(10)
+        tree.add(5)
+        tree.add(7)
+        tree.add(14)
+        assertEquals(4, tree.size)
+        assertTrue(tree.remove(5))
+        assertFalse(tree.remove(5))
+        assertFalse(tree.remove(8))
+        assertTrue(tree.remove(10))
+        assertEquals(2, tree.size)
+        assertTrue(tree.remove(14))
+        assertTrue(tree.remove(7))
+        assertEquals(0, tree.size)
+
+    }
+
+    @Test
     fun addKotlin() {
         val tree = KtBinaryTree<Int>()
         tree.add(10)
